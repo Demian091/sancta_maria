@@ -1,0 +1,14 @@
+{% extends "savings/base.html" %}
+{% block title %}Sancta Maria Agency | Savings management{% endblock %}
+{% block content %}
+<section class="home-hero">
+<div class="home-mark">SM</div>
+<p class="auth-eyebrow">Sancta Maria Agency</p>
+<h1>Savings, made clear.</h1>
+<p>A simple and transparent way to manage deposits, track balances, and keep your savings records in one place.</p>
+<div class="home-actions">
+<a class="btn" href="{% url 'customer_login' %}">Customer access</a>
+<a class="btn secondary" href="{% url 'owner_login' %}">Owner sign in</a>
+</div>
+</section>
+{% endblock %}

@@ -1,0 +1,15 @@
+<div class="card"><form method="get" class="row noprint">
+<div><label>Month</label><select name="month">{% for n,label in months %}<option value="{{ n }}" {% if n == month %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></div>
+<div><label>Year</label><select name="year">{% for y in years %}<option value="{{ y }}" {% if y == year %}selected{% endif %}>{{ y }}</option>{% endfor %}</select></div>
+<div><button>Show</button> <button type="button" onclick="window.print()">Print</button></div></form></div>
+
+<div class="card"><h3>Daily savings — {{ month }}/{{ year }}</h3>
+<p>Opening balance: <b>₦{{ st.opening|floatformat:2 }}</b> · Saved this month: <b>₦{{ st.total|floatformat:2 }}</b> · Closing balance: <b>₦{{ st.closing|floatformat:2 }}</b></p>
+<div class="scroll"><table><tr><th>Date</th><th class="n">Amount saved (₦)</th><th class="n">Cumulative balance (₦)</th></tr>
+{% for r in st.rows %}<tr {% if r.deposit %}class="hit"{% endif %}><td>{{ r.date|date:"D, d M Y" }}</td>
+<td class="n">{% if r.deposit %}{{ r.deposit|floatformat:2 }}{% else %}—{% endif %}</td><td class="n">{{ r.balance|floatformat:2 }}</td></tr>{% endfor %}</table></div></div>
+
+<div class="card"><h3>Year {{ year }} summary</h3><div class="scroll"><table>
+<tr><th>Month</th><th class="n">Saved (₦)</th><th class="n">Balance at month end (₦)</th></tr>
+{% for r in year_rows %}<tr><td><a href="?year={{ year }}&month={{ r.month }}">{{ r.name }}</a></td><td class="n">{{ r.total|floatformat:2 }}</td><td class="n">{{ r.balance|floatformat:2 }}</td></tr>{% endfor %}
+</table></div></div>

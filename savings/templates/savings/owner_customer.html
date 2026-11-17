@@ -1,0 +1,14 @@
+{% extends "savings/base.html" %}{% block content %}
+<div class="card"><h2>{{ customer.name }}</h2><p>Card no. {{ customer.card_number }} {% if customer.phone %}· {{ customer.phone }}{% endif %}</p>
+<div>Total savings balance</div><div class="big">₦{{ customer.balance|floatformat:2 }}</div></div>
+<div class="card noprint"><h3>Record savings</h3><form method="post" class="row">{% csrf_token %}
+<div><label>Date</label>{{ form.date }}<span class="err">{{ form.date.errors }}</span></div>
+<div><label>Amount (₦)</label>{{ form.amount }}<span class="err">{{ form.amount.errors }}</span></div>
+<div><label>Note</label>{{ form.note }}</div><div><button>Save deposit</button></div></form></div>
+{% include "savings/_statement.html" %}
+<div class="card noprint"><h3>Recent deposits</h3><table><tr><th>Date</th><th class="n">Amount (₦)</th><th>Note</th><th></th></tr>
+{% for d in recent %}<tr><td>{{ d.date }}</td><td class="n">{{ d.amount|floatformat:2 }}</td><td>{{ d.note }}</td>
+<td><form method="post" action="{% url 'delete_deposit' d.pk %}" onsubmit="return confirm('Remove this deposit?')">{% csrf_token %}<button class="red">Remove</button></form></td></tr>
+{% empty %}<tr><td colspan="4">No deposits yet.</td></tr>{% endfor %}</table>
+<br><form method="post" action="{% url 'delete_customer' customer.pk %}" onsubmit="return confirm('Delete this customer and ALL their savings records?')">{% csrf_token %}<button class="red">Delete customer</button></form></div>
+{% endblock %}

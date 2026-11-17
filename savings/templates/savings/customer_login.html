@@ -1,0 +1,19 @@
+{% extends "savings/base.html" %}
+{% block title %}Customer access | Sancta Maria Agency{% endblock %}
+{% block main_class %}auth-main{% endblock %}
+{% block content %}
+<section class="auth-shell">
+<div class="auth-card">
+<div class="auth-brand">SM</div>
+<p class="auth-eyebrow">Customer savings portal</p>
+<h1>Access your savings</h1>
+<p class="auth-subtitle">Enter your registered name and card number to view your account.</p>
+<form method="post" class="auth-form">{% csrf_token %}
+<p><label for="{{ form.name.id_for_label }}">Full name</label>{{ form.name }}<span class="err">{{ form.name.errors }}</span></p>
+<p><label for="{{ form.card_number.id_for_label }}">Card number</label>{{ form.card_number }}<span class="err">{{ form.card_number.errors }}</span></p>
+<button type="submit">Continue to account</button>
+</form>
+<div class="auth-foot"><a href="{% url 'home' %}">Back to home</a></div>
+</div>
+</section>
+{% endblock %}

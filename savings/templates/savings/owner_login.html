@@ -1,0 +1,19 @@
+{% extends "savings/base.html" %}
+{% block title %}Owner login | Sancta Maria Agency{% endblock %}
+{% block main_class %}auth-main{% endblock %}
+{% block content %}
+<section class="auth-shell">
+<div class="auth-card">
+<div class="auth-brand">SM</div>
+<p class="auth-eyebrow">Sancta Maria Agency</p>
+<h1>Welcome back</h1>
+<p class="auth-subtitle">Sign in to manage customer accounts and savings records.</p>
+<form method="post" class="auth-form">{% csrf_token %}
+<p><label for="{{ form.email.id_for_label }}">Email address</label>{{ form.email }}<span class="err">{{ form.email.errors }}</span></p>
+<p><label for="{{ form.password.id_for_label }}">Password</label>{{ form.password }}<span class="err">{{ form.password.errors }}</span></p>
+<button type="submit">Sign in</button>
+</form>
+<div class="auth-foot"><a href="{% url 'home' %}">Back to home</a></div>
+</div>
+</section>
+{% endblock %}
